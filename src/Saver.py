@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 
+
 class BaseSaver(ABC):
     '''Абстрактный класс, хранит данные о самолетах'''
 
@@ -10,7 +11,6 @@ class BaseSaver(ABC):
     @abstractmethod
     def get_aeroplanes(self, criteria):
         pass
-
 
     @abstractmethod
     def delete_aeroplane(self, aeroplane):

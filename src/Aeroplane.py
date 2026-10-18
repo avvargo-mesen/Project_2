@@ -1,6 +1,12 @@
 class Aeroplane:
 
-    def __init__(self, callsign, origin_country, velocity, baro_altitude):
+    def __init__(
+            self,
+            callsign: str,
+            origin_country: str,
+            velocity: float,
+            baro_altitude: float,
+    ):
         if callsign is None:
             callsign = "Unknown"
         if origin_country is None:
@@ -16,7 +22,10 @@ class Aeroplane:
         self.baro_altitude = float(baro_altitude)
 
     def __str__(self):
-        return f"Позывной:{self.callsign}, страна: {self.origin_country}, скорость: {self.velocity} м/с, высота: {self.baro_altitude} м"
+        return (
+            f"Позывной:{self.callsign}, страна: {self.origin_country},"
+            f"скорость: {self.velocity} м/с, высота: {self.baro_altitude} м"
+        )
 
     def __lt__(self, other):
         result = self.velocity < other.velocity

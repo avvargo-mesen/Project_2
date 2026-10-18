@@ -1,6 +1,6 @@
 from src.AeroplanesAPI import AeroplanesAPI
 from src.Aeroplane import Aeroplane
-from src.JSONSaver import JSONSaver
+
 
 def user_interaction():
     country = input("Введите страну: ")
