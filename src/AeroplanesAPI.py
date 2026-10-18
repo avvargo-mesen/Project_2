@@ -20,7 +20,7 @@ class AeroplanesAPI(BaseAPI):
 
 
     def get_info_about_plane(self, country):
-        '''Метод завпрашивает координаты самолета'''
+        '''Метод запрашивает координаты самолета'''
         coordinates = self.get_info_about_country(country)
         if coordinates == None:
             return None

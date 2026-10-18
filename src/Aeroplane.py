@@ -36,6 +36,7 @@ class Aeroplane:
 
     @classmethod
     def cast_to_object_list(cls, data):
+        '''Метод преобразовывает базу в список'''
         planes = []
         for plane in data:
             planes.append(cls(plane[1], plane[2], plane[9], plane[7]))
