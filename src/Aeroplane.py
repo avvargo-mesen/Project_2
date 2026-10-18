@@ -33,3 +33,10 @@ class Aeroplane:
     def __ge__(self, other):
         result = self.baro_altitude >= other.baro_altitude
         return result
+
+    @classmethod
+    def cast_to_object_list(cls, data):
+        planes = []
+        for plane in data:
+            planes.append(cls(plane[1], plane[2], plane[9], plane[7]))
+        return planes
