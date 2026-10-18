@@ -24,9 +24,13 @@ class JSONSaver(BaseSaver):
             return []
 
         result = []
-        country = criteria["origin_country"]
         for plane in data:
-            if plane["origin_country"] == country:
+            match = True
+            for key, value in criteria.items():
+                if plane.get(key) != value:
+                    match = False
+                    break
+            if match:
                 result.append(plane)
         return result
 
