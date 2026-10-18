@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
 class BaseAPI(ABC):
-
+    '''Абстрактный класс, хранит URL'''
     def __init__(self, url):
         self.url= url
 
