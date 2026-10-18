@@ -77,3 +77,21 @@ def test_aeroplane_none():
 def test_aeroplane_str():
     plane = Aeroplane("A", "France", 100, 1000)
     assert "A" in str(plane)
+
+def test_aeroplane_bad_float():
+    plane = Aeroplane("A", "France", "abc", "xyz")
+    assert plane.velocity == 0.0
+    assert plane.baro_altitude == 0.0
+
+def test_jsonsaver_broken_json():
+    with open("broken.json", "w", encoding="utf-8") as f:
+        f.write("not a json")
+
+    saver = JSONSaver("broken.json")
+
+    plane = Aeroplane("A", "France", 100, 1000)
+    saver.add_aeroplane(plane)
+    result = saver.get_aeroplanes({"callsign": "A"})
+    assert len(result) == 1
+
+    saver.delete_aeroplane(plane)

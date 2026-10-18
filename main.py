@@ -1,5 +1,6 @@
 from src.AeroplanesAPI import AeroplanesAPI
 from src.Aeroplane import Aeroplane
+from src.JSONSaver import JSONSaver
 
 
 def user_interaction():
@@ -13,10 +14,17 @@ def user_interaction():
         print("Страна не найдена")
         return
     planes = Aeroplane.cast_to_object_list(raw)
-    n = int(input("Сколько самолетов показать: "))
+    try:
+        n = int(input("Сколько самолетов показать: "))
+    except ValueError:
+        print("Нужно ввести число")
+        return
     top = sorted(planes, key=lambda p: p.baro_altitude, reverse=True)[:n]
-    for p in top:
-        print(p)
+
+    saver = JSONSaver("aeroplanes.json")
+    for plane in top:
+        print(plane)
+        saver.add_aeroplane(plane)
 
 
 if __name__ == "__main__":

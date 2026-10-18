@@ -18,12 +18,18 @@ class Aeroplane:
 
         self.callsign = str(callsign).strip()
         self.origin_country = str(origin_country)
-        self.velocity = float(velocity)
-        self.baro_altitude = float(baro_altitude)
+        try:
+            self.velocity = float(velocity)
+        except (ValueError, TypeError):
+            self.velocity = 0.0
+        try:
+            self.baro_altitude = float(baro_altitude)
+        except (ValueError, TypeError):
+            self.baro_altitude = 0.0
 
     def __str__(self):
         return (
-            f"Позывной:{self.callsign}, страна: {self.origin_country},"
+            f"Позывной:{self.callsign}, страна: {self.origin_country}, "
             f"скорость: {self.velocity} м/с, высота: {self.baro_altitude} м"
         )
 

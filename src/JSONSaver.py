@@ -12,6 +12,8 @@ class JSONSaver(BaseSaver):
                 data = json.load(f)
         except FileNotFoundError:
             data = []
+        except json.JSONDecodeError:
+            data = []
         data.append(aeroplane.__dict__)
         with open(self.filename, "w", encoding="utf-8") as f:
             json.dump(data, f, ensure_ascii=False, indent=2)
@@ -21,6 +23,8 @@ class JSONSaver(BaseSaver):
             with open(self.filename, "r", encoding="utf-8") as f:
                 data = json.load(f)
         except FileNotFoundError:
+            return []
+        except json.JSONDecodeError:
             return []
 
         result = []
@@ -39,6 +43,8 @@ class JSONSaver(BaseSaver):
             with open(self.filename, "r", encoding="utf-8") as f:
                 data = json.load(f)
         except FileNotFoundError:
+            return
+        except json.JSONDecodeError:
             return
 
         new_data = []
