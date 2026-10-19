@@ -3,3 +3,6 @@ __pycache__/
 .pytest_cache/
 .idea/
 .venv/
+aeroplanes.json
+test_aeroplanes.json
+broken.json

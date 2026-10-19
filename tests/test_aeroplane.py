@@ -3,6 +3,7 @@ from src.JSONSaver import JSONSaver
 import pytest
 from src.base_api import BaseAPI
 from src.AeroplanesAPI import AeroplanesAPI
+from src.Saver import BaseSaver
 
 
 def test_aeroplane_init():
@@ -95,3 +96,66 @@ def test_jsonsaver_broken_json():
     assert len(result) == 1
 
     saver.delete_aeroplane(plane)
+
+def test_get_info_about_country(monkeypatch):
+    class FakeResponse:
+        status_code = 200
+
+        def json(self):
+            return [{"boundingbox": ["1", "2", "3", "4"]}]
+
+    def fake_get(url_country, headers=None):
+        return FakeResponse()
+
+    monkeypatch.setattr("requests.get", fake_get)
+    api = AeroplanesAPI("url1", "url2")
+    result = api.get_info_about_country("Spain")
+    assert result == ["1", "2", "3", "4"]
+
+def test_get_info_about_country_empty(monkeypatch):
+    class FakeResponse:
+        status_code = 200
+
+        def json(self):
+            return []
+
+    def fake_get(url, headers=None):
+        return FakeResponse()
+
+    monkeypatch.setattr("requests.get", fake_get)
+    api = AeroplanesAPI("url1", "url2")
+    result = api.get_info_about_country("Nowhere")
+    assert result is None
+
+def test_base_saver():
+    with pytest.raises(TypeError):
+        BaseSaver()
+
+def test_top_n_desc():
+    plane1 = Aeroplane("A", "France", 100, 1000)
+    plane2 = Aeroplane("B", "France", 200, 3000)
+    plane3 = Aeroplane("C", "France", 300, 2000)
+
+    planes = [plane1, plane2, plane3]
+    top = sorted(planes, key=lambda p: p.baro_altitude, reverse=True)
+    assert top[0].baro_altitude == 3000
+    assert top[1].baro_altitude == 2000
+    assert top[2].baro_altitude == 1000
+
+    top2 = top[:2]
+    assert len(top2) == 2
+    assert top2[0].baro_altitude == 3000
+
+def test_filter_by_country():
+    plane1 = Aeroplane("A", "France", 100, 1000)
+    plane2 = Aeroplane("B", "Germany", 200, 3000)
+    plane3 = Aeroplane("C", "France", 300, 2000)
+
+    planes = [plane1, plane2, plane3]
+    reg_country = "France"
+    filtered = [p for p in planes if p.origin_country == reg_country]
+    assert len(filtered) == 2
+    assert filtered[0].origin_country == "France"
+    assert filtered[1].origin_country == "France"
+
+

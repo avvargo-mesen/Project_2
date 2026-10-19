@@ -24,6 +24,8 @@ class AeroplanesAPI(BaseAPI):
                 return None
             else:
                 data = response_about_country.json()
+                if not data:
+                    return None
                 return data[0]["boundingbox"]
         except requests.RequestException:
             return None
