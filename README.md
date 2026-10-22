@@ -39,15 +39,16 @@
 - `get_aeroplanes(criteria)` — возвращает самолёты по критериям (словарь).
 - `delete_aeroplane(aeroplane)` — удаляет самолёт из JSON-файла.
 
-Покрытие тестами 71%
+Покрытие тестами — 77%.
 Name                   Stmts   Miss  Cover
 ------------------------------------------
 src\Aeroplane.py          40      0   100%
-src\AeroplanesAPI.py      29     23    21%
+src\AeroplanesAPI.py      31     15    52%
 src\JSONSaver.py          49     12    76%
 src\Saver.py              11      3    73%
 src\__init__.py            0      0   100%
-src\base_api.py           10      3    70%
+src\base_api.py           10      2    80%
 ------------------------------------------
-TOTAL                    139     41    71%
+TOTAL                    141     32    77%
+
 
